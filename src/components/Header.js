@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import ToolBox from './ToolBox';
 
 const HeaderWrapper = styled.section`
   background-color: coral;
   color: #f4f4f4;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 `;
 const LogoWrapper = styled.section`
   font-size: 4rem;
@@ -19,6 +20,7 @@ class Header extends Component {
     return (
       <HeaderWrapper>
         <LogoWrapper>To Do List</LogoWrapper>
+        <ToolBox />
       </HeaderWrapper>
     );
   }

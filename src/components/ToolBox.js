@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import AddTodoForm from './AddTodoForm';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Consumer } from '../App';
 
@@ -22,12 +22,17 @@ const ToolBoxWrapper = styled.section`
 `;
 
 class ToolBox extends Component {
-  handleClick = (toggleForm, e) => {
+  state = {
+    showForm: false
+  };
+  handleClick = e => {
     //rotating icon
     e.target.classList.contains('spin')
       ? e.target.classList.remove('spin')
       : e.target.classList.add('spin');
-    toggleForm();
+    this.setState(state => ({
+      showForm: !state.showForm
+    }));
   };
 
   render() {
@@ -35,10 +40,9 @@ class ToolBox extends Component {
       <Consumer>
         {contextValue => (
           <ToolBoxWrapper>
-            <i
-              className='fas fa-plus'
-              onClick={this.handleClick.bind(this, contextValue.toggleForm)}
-            />
+            <Link to={this.state.showForm ? '/' : '/add'}>
+              {<i className='fas fa-plus' onClick={this.handleClick} />}
+            </Link>
           </ToolBoxWrapper>
         )}
       </Consumer>

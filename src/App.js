@@ -1,14 +1,12 @@
+import styled from 'styled-components';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Todos from './components/Todos';
-import ToolBox from './components/ToolBox';
 import AddTodoForm from './components/AddTodoForm';
-import styled from 'styled-components';
 
 export const { Provider, Consumer } = React.createContext();
 
-//Style
 const AppWrapper = styled.section`
   background: #f4f4f4;
   max-width: 800px;
@@ -40,8 +38,7 @@ class App extends Component {
         task: 'To make web',
         description: 'to make last sections'
       }
-    ],
-    showForm: true
+    ]
   };
 
   render() {
@@ -59,11 +56,6 @@ class App extends Component {
             todos: state.todos
           };
         });
-      },
-      toggleForm: () => {
-        this.setState(state => ({
-          showForm: !state.showForm
-        }));
       }
     };
 
@@ -72,9 +64,16 @@ class App extends Component {
         <Router>
           <AppWrapper>
             <Header />
-            <ToolBox />
-            {this.state.showForm ? <AddTodoForm /> : null}
-            <Todos todos={this.state.todos} />
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={props => <Todos {...props} todos={this.state.todos} />}
+              />
+            </Switch>
+            <Switch>
+              <Route exact path='/add' component={AddTodoForm} />
+            </Switch>
           </AppWrapper>
         </Router>
       </Provider>

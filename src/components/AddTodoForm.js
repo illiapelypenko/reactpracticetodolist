@@ -28,6 +28,7 @@ const FormWrapper = styled.form`
     margin-top: 20px;
     border: none;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
   }
 `;
 
@@ -89,6 +90,7 @@ class AddTodoForm extends Component {
         description: ''
       }
     }));
+    this.props.history.push('/');
   };
 
   render() {

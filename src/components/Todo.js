@@ -15,6 +15,7 @@ const TaskWrapper = styled.section`
     float: right;
     color: red;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    cursor: pointer;
   }
 `;
 const DescriptionWrapper = styled.section`
