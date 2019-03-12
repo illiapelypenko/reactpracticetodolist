@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
@@ -22,31 +23,38 @@ class App extends Component {
     todos: []
   };
 
+  updateState = () => {
+    console.log('State will be changed');
+    axios.get('http://localhost:5000/todos').then(todos => {
+      this.setState(state => ({
+        todos: todos.data
+      }));
+      console.log('State changed');
+    });
+  };
+
   componentDidMount() {
-    fetch('http://localhost:5000/todos')
-      .then(res => res.json())
-      .then(todos => {
-        this.setState(state => ({
-          todos
-        }));
-      });
+    this.updateState();
   }
 
   render() {
     const contextValue = {
       todos: this.state,
-      handleDeleteTodo: id => {
-        this.setState(state => ({
-          todos: state.todos.filter(todo => todo.id !== id)
-        }));
+      handleDeleteTodo: async id => {
+        await axios.delete(`http://localhost:5000/todos/${id}`);
+        this.updateState();
       },
-      handleAddTodo: todo => {
-        this.setState(state => {
-          state.todos.push(todo);
-          return {
-            todos: state.todos
-          };
-        });
+
+      handleAddTodo: async todo => {
+        await axios.post(`http://localhost:5000/todos/add`, todo);
+        this.updateState();
+      },
+
+      handleEditTodo: todo => {
+        console.log(todo);
+        axios
+          .put(`http://localhost:5000/todos/edit`, todo)
+          .then(() => this.updateState());
       }
     };
 
