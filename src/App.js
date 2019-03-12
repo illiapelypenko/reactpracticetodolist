@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Todos from './components/Todos';
 import EditTodo from './components/EditTodo';
