@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Consumer } from '../App';
@@ -16,6 +17,11 @@ const TaskWrapper = styled.section`
     color: red;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     cursor: pointer;
+    margin: 0px 5px;
+  }
+
+  i[class='fas fa-edit'] {
+    color: black;
   }
 `;
 const DescriptionWrapper = styled.section`
@@ -48,6 +54,7 @@ class Todo extends Component {
                 className='fas fa-times'
                 onClick={contextValue.handleDeleteTodo.bind(this, id)}
               />
+              <Link to={`/edit/${id}`}>{<i className='fas fa-edit' />}</Link>
             </TaskWrapper>
             <DescriptionWrapper isOpened={isOpened}>
               {description}

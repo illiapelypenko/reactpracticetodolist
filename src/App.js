@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Todos from './components/Todos';
+import EditTodo from './components/EditTodo';
 import AddTodoForm from './components/AddTodoForm';
+import NotFound from './components/NotFound';
 
 export const { Provider, Consumer } = React.createContext();
 
@@ -17,29 +19,18 @@ const AppWrapper = styled.section`
 
 class App extends Component {
   state = {
-    todos: [
-      {
-        id: '0',
-        task: 'To clean my room',
-        description: 'To clean my room especially a windows'
-      },
-      {
-        id: '1',
-        task: 'To watch a react vids',
-        description: 'To watch last section'
-      },
-      {
-        id: '2',
-        task: 'To learn German',
-        description: 'To learn 12-s section'
-      },
-      {
-        id: '3',
-        task: 'To make web',
-        description: 'to make last sections'
-      }
-    ]
+    todos: []
   };
+
+  componentDidMount() {
+    fetch('http://localhost:5000/todos')
+      .then(res => res.json())
+      .then(todos => {
+        this.setState(state => ({
+          todos
+        }));
+      });
+  }
 
   render() {
     const contextValue = {
@@ -70,9 +61,9 @@ class App extends Component {
                 path='/'
                 render={props => <Todos {...props} todos={this.state.todos} />}
               />
-            </Switch>
-            <Switch>
               <Route exact path='/add' component={AddTodoForm} />
+              <Route exact path='/edit/:id' component={EditTodo} />
+              <Route component={NotFound} />
             </Switch>
           </AppWrapper>
         </Router>
