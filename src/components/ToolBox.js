@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Consumer } from '../App';
 
 const ToolBoxWrapper = styled.section`
   display: flex;
@@ -19,14 +18,10 @@ const ToolBoxWrapper = styled.section`
 class ToolBox extends Component {
   render() {
     return (
-      <Consumer>
-        {contextValue => (
-          <ToolBoxWrapper>
-            <Link to={'/'}>{<i className='fas fa-home' />}</Link>
-            <Link to={'/add'}>{<i className='fas fa-plus' />}</Link>
-          </ToolBoxWrapper>
-        )}
-      </Consumer>
+      <ToolBoxWrapper>
+        <Link to={'/'}>{<i className='fas fa-home' />}</Link>
+        <Link to={'/add'}>{<i className='fas fa-plus' />}</Link>
+      </ToolBoxWrapper>
     );
   }
 }

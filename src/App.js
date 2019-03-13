@@ -24,12 +24,10 @@ class App extends Component {
   };
 
   updateState = () => {
-    console.log('State will be changed');
     axios.get('http://localhost:5000/todos').then(todos => {
       this.setState(state => ({
         todos: todos.data
       }));
-      console.log('State changed');
     });
   };
 
@@ -50,11 +48,9 @@ class App extends Component {
         this.updateState();
       },
 
-      handleEditTodo: todo => {
-        console.log(todo);
-        axios
-          .put(`http://localhost:5000/todos/edit`, todo)
-          .then(() => this.updateState());
+      handleEditTodo: async todo => {
+        await axios.put(`http://localhost:5000/todos/edit`, todo);
+        this.updateState();
       }
     };
 

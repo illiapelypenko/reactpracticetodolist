@@ -51,7 +51,6 @@ class EditTodo extends Component {
     const res = await fetch(`http://localhost:5000/todos/${id}`);
     const todo = await res.json();
     this.setState({ values: { ...todo } });
-    console.log('edit did mount');
   }
 
   handleChange = e => {
@@ -68,11 +67,6 @@ class EditTodo extends Component {
   handleSubmit = (handleEditTodo, e) => {
     e.preventDefault();
     const { id, task, description } = this.state.values;
-    const {
-      id: idError,
-      task: taskError,
-      description: descriptionError
-    } = this.state.errors;
 
     if (!id || !task || !description) {
       this.setState(state => ({

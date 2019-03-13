@@ -60,11 +60,6 @@ class AddTodoForm extends Component {
   handleSubmit = (handleAddTodo, e) => {
     e.preventDefault();
     const { id, task, description } = this.state.values;
-    const {
-      id: idError,
-      task: taskError,
-      description: descriptionError
-    } = this.state.errors;
 
     if (!id || !task || !description) {
       this.setState(state => ({

@@ -45,11 +45,9 @@ app.post('/todos/add', (req, res) => {
 
 app.put('/todos/edit', (req, res) => {
   res.json(
-    todos.splice(
-      todos.indexOf(todos.find(todo => todo.id == req.body.id)),
-      1,
-      req.body
-    )
+    (todos = todos.map(todo =>
+      todo.id === req.body.id ? (todo = req.body) : todo
+    ))
   );
 });
 
